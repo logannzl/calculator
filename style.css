@@ -1,0 +1,54 @@
+.background{
+    width: 400px;
+    height: 575px;
+    background-color: lightgray;
+    border: solid black 3px;
+    display: flex;
+    flex-direction: column;
+  
+}
+
+body{
+display: flex;
+justify-content: center;
+
+}
+
+.row{
+    display: flex;
+
+
+}
+
+button{
+    border: 2px solid black;
+    width: 100px;
+    height: 100px;
+    font-size: 18px;
+    font-weight: bold;
+}
+.clear, .delete{
+    height: 75px;
+    width: 200px;
+}
+.clear{
+    background-color: red;
+}
+.delete{
+    background-color: orange;
+}
+.display{
+    background-color: white;
+    display: flex;
+    border: 2px solid black;
+    height: 100px;
+    width: 400px;
+    font-size: 80px;
+    align-content:flex-end;
+    justify-content: end;
+    align-items: flex-end;
+}
+.equals{
+    background-color: lawngreen;
+}
+
