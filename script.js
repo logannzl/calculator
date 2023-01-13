@@ -4,12 +4,22 @@ const display = document.querySelector('.display');
 const btnClear = document.querySelector('.clear');
 const btnDelete = document.querySelector('.delete');
 const btnEquals = document.querySelector('.equals');
+const btnDecimal = document.querySelector('.decimal');
 let displayValue = '';
 let x = '';
 let y = '';
 let operatorType = '';
 let oldOperator = '';
 let answer = '';
+
+btnDecimal.addEventListener('click', ()=>{
+    if (display.textContent.includes('.')){
+    }
+    else{
+        displayValue += btnDecimal.textContent;
+        display.textContent = displayValue;
+    }
+})
 
 numbers.forEach(number =>{
     number.addEventListener('click', ()=>{
@@ -26,7 +36,7 @@ operators.forEach(operator =>{
 })
 
 btnEquals.addEventListener('click', ()=>{
-    y = parseInt(displayValue);
+    y = parseFloat(displayValue);
     if (operatorType == '/' && y == 0){
         alert("Obviously the answer will be 0");
         displayValue = '';
@@ -37,6 +47,9 @@ btnEquals.addEventListener('click', ()=>{
     }
     else{
         answer = operate(operatorType, x, y);
+        if (answer % 1 !== 0){
+            answer = parseFloat(answer).toFixed(2);
+        }
         display.textContent = answer;
         displayValue = '';
         x = answer;
@@ -58,9 +71,15 @@ btnClear.addEventListener('click', ()=>{
 
 function action(){
     if (x !== '' && y == ''){
+        if (display.textContent == answer){
+            return;
+        }
         console.log('this');
-        y = parseInt(displayValue)
+        y = parseFloat(displayValue)
         answer = operate(oldOperator, x, y);
+        if (answer % 1 !== 0){
+            answer = parseFloat(answer).toFixed(2);
+        }
         oldOperator = operatorType;
         display.textContent = answer;
         displayValue = '';
@@ -70,7 +89,7 @@ function action(){
     else {
         console.log('no way');
         displayValue = display.textContent;
-        x = parseInt(displayValue);
+        x = parseFloat(displayValue);
         oldOperator = operatorType;
         displayValue = '';
 
