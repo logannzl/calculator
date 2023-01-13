@@ -1,95 +1,47 @@
-const btn0 = document.getElementById('btn0');
-const btn1 = document.getElementById('btn1');
-const btn2 = document.getElementById('btn2');
-const btn3 = document.getElementById('btn3');
-const btn4 = document.getElementById('btn4');
-const btn5 = document.getElementById('btn5');
-const btn6 = document.getElementById('btn6');
-const btn7 = document.getElementById('btn7');
-const btn8 = document.getElementById('btn8');
-const btn9 = document.getElementById('btn9');
-const btnAdd = document.getElementById('btnAdd');
-const btnSubtract = document.getElementById('btnSubtract');
-const btnMultiply = document.getElementById('btnMultiply');
-const btnDivide = document.getElementById('btnDivide');
-let display = document.querySelector('.display');
+const operators = document.querySelectorAll('.operator');
+const numbers = document.querySelectorAll('.number')
+const display = document.querySelector('.display');
 const btnClear = document.querySelector('.clear');
 const btnDelete = document.querySelector('.delete');
 const btnEquals = document.querySelector('.equals');
 let displayValue = '';
-let x;
-let y;
-let operator;
-btn0.addEventListener('click', ()=>{
-    displayValue += btn0.textContent;
-    display.textContent = displayValue;
-});
-btn1.addEventListener('click', ()=>{
-    displayValue += btn1.textContent;
-    display.textContent = displayValue;
-});
-btn2.addEventListener('click', ()=>{
-    displayValue += btn2.textContent;
-    display.textContent = displayValue;
-});
-btn3.addEventListener('click', ()=>{
-    displayValue += btn3.textContent;
-    display.textContent = displayValue;
-});
-btn4.addEventListener('click', ()=>{
-    displayValue += btn4.textContent;
-    display.textContent = displayValue;
-});
-btn5.addEventListener('click', ()=>{
-    displayValue += btn5.textContent;
-    display.textContent = displayValue;
-});
-btn6.addEventListener('click', ()=>{
-    displayValue += btn6.textContent;
-    display.textContent = displayValue;
-});
-btn7.addEventListener('click', ()=>{
-    displayValue += btn7.textContent;
-    display.textContent = displayValue;
-});
-btn8.addEventListener('click', ()=>{
-    displayValue += btn8.textContent;
-    display.textContent = displayValue;
-});
-btn9.addEventListener('click', ()=>{
-    displayValue += btn9.textContent;
-    display.textContent = displayValue;
-});
-btnAdd.addEventListener('click', ()=>{
-    x = parseInt(displayValue);
-    display.textContent = displayValue + '+';
-    displayValue = '';
-    operator = '+';
+let x = '';
+let y = '';
+let operatorType = '';
+let oldOperator = '';
+let answer = '';
 
+numbers.forEach(number =>{
+    number.addEventListener('click', ()=>{
+        displayValue += number.textContent;
+        display.textContent = displayValue; 
+    });   
 });
-btnSubtract.addEventListener('click', ()=>{
-    x = parseInt(displayValue);
-    display.textContent = displayValue + '-';
-    displayValue = '';
-    operator = '-';
-});
-btnMultiply.addEventListener('click', ()=>{
-    x = parseInt(displayValue);
-    display.textContent = displayValue + 'x';
-    displayValue = '';
-    operator = '*';
-});
-btnDivide.addEventListener('click', ()=>{
-    x = parseInt(displayValue);
-    display.textContent = displayValue + '/';
-    displayValue = '';
-    operator = '/';
-});
+
+operators.forEach(operator =>{
+    operator.addEventListener('click', ()=>{
+        operatorType = operator.textContent;
+        action(); 
+    })
+})
+
 btnEquals.addEventListener('click', ()=>{
     y = parseInt(displayValue);
-    let answer = operate(operator, x, y);
-    display.textContent = answer.toFixed(4);
-    displayValue = answer;
+    if (operatorType == '/' && y == 0){
+        alert("Obviously the answer will be 0");
+        displayValue = '';
+        x = '';
+        y = '';
+        operatorType = '';
+        display.textContent = '';
+    }
+    else{
+        answer = operate(operatorType, x, y);
+        display.textContent = answer;
+        displayValue = '';
+        x = answer;
+        y = '';
+    }
 
 })
 btnDelete.addEventListener('click', ()=>{
@@ -100,11 +52,30 @@ btnClear.addEventListener('click', ()=>{
     displayValue = '';
     x = '';
     y = '';
-    operator = '';
+    operatorType = '';
     display.textContent = '';
 })
 
+function action(){
+    if (x !== '' && y == ''){
+        console.log('this');
+        y = parseInt(displayValue)
+        answer = operate(oldOperator, x, y);
+        oldOperator = operatorType;
+        display.textContent = answer;
+        displayValue = '';
+        x = answer;
+        y = '';
+    }
+    else {
+        console.log('no way');
+        displayValue = display.textContent;
+        x = parseInt(displayValue);
+        oldOperator = operatorType;
+        displayValue = '';
 
+    }
+}
 
 function add(num1, num2){
     let result = num1 + num2;
@@ -126,21 +97,20 @@ function divide(num1, num2){
     return result;
 }
 
-function operate(operator, num1, num2){
+function operate(operatorType, num1, num2){
     let result = 0;
-    if (operator === '/'){
+    if (operatorType === '/'){
         result = divide(num1, num2);
     }
-    else if (operator === '*'){
+    else if (operatorType === '*'){
         result = multiply(num1, num2);
     }
-    else if (operator === '-'){
+    else if (operatorType === '-'){
         result = subtract(num1, num2);
     }
-    else if (operator === '+'){
+    else if (operatorType === '+'){
         result = add(num1, num2);
     }
     return result;
     
 }
-
