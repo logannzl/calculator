@@ -1,8 +1,9 @@
 .background{
     width: 400px;
-    height: 575px;
+    height: 600px;
     background-color: lightgray;
     border: solid black 3px;
+    border-radius: 15px;
     display: flex;
     flex-direction: column;
   
@@ -11,25 +12,33 @@
 body{
 display: flex;
 justify-content: center;
-
 }
 
 .row{
     display: flex;
+    justify-content: space-around;
+    margin-top: auto;
+    margin-bottom: auto;
+}
 
-
+.operator{
+    background-color: aquamarine;
 }
 
 button{
     border: 2px solid black;
-    width: 100px;
-    height: 100px;
+    border-radius: 15px;
+    padding: 25px;
+    width: 80px;
+    height: 80px;
     font-size: 18px;
     font-weight: bold;
 }
 .clear, .delete{
     height: 75px;
-    width: 200px;
+    width: 180px;
+    text-align: center;
+
 }
 .clear{
     background-color: red;
@@ -39,11 +48,12 @@ button{
 }
 .display{
     background-color: white;
+    border-radius: 15px;
     display: flex;
     border: 2px solid black;
     height: 100px;
-    width: 400px;
-    font-size: 80px;
+    width: 375px;
+    font-size: 72px;
     align-content:flex-end;
     justify-content: end;
     align-items: flex-end;
